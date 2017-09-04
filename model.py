@@ -54,15 +54,15 @@ from keras.models import Sequential
 from keras.layers.core import Flatten, Dense ,Lambda
 from keras.layers import Cropping2D
 from keras.layers.convolutional import Conv2D
-from keras.layers.pooling import MaxPool2D
+#from keras.layers.pooling import MaxPool2D
 
 model = Sequential()
 model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape=(160, 320, 3)))
 model.add(Cropping2D(cropping=((70,25),(0,0))))
 model.add(Conv2D(6, (5, 5),strides=(1, 1), padding='valid',activation='relu'))
-model.add(MaxPool2D(pool_size=(3,3),strides=(2,2)))
+#model.add(MaxPool2D(pool_size=(3,3),strides=(2,2)))
 model.add(Conv2D(6, (5, 5),strides=(1, 1), padding='valid',activation='relu'))
-model.add(MaxPool2D(pool_size=(3,3),strides=(2,2)))
+#model.add(MaxPool2D(pool_size=(3,3),strides=(2,2)))
 model.add(Flatten())
 model.add(Dense(120))
 model.add(Dense(84))
