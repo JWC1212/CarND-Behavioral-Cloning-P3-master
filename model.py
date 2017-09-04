@@ -6,7 +6,7 @@ This is a temporary script file.
 """
 import numpy as np
 import csv
-import cv2
+import matplotlib.image as mpimg
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 
@@ -30,7 +30,7 @@ def sample_generator (samples, batch_size=32):
                 src_file_path = line[0]
                 file_name = src_file_path.split('/')[-1]
                 current_path = '../data/IMG/'+file_name
-                img = cv2.imread(current_path)
+                img = mpimg.imread(current_path)
                 images.append(img)
                 measurement = float(line[3])
                 measurements.append(measurement)
@@ -39,7 +39,7 @@ def sample_generator (samples, batch_size=32):
             for img, measure in zip(images, measurements):
                 augmented_images.append(img)
                 augmented_measurements.append(measure)
-                augmented_images.append(cv2.flip(img, 1))
+                augmented_images.append(np.flip(img, 1))
                 augmented_measurements.append(measure*(-1.0))
 
             X_ = np.array(augmented_images)
@@ -68,7 +68,7 @@ model.add(Dense(84))
 model.add(Dense(1))
 
 model.compile(loss='mse',optimizer='Adam',metrics=['accuracy'])
-history = model.fit_generator(train_generator, steps_per_epoch=len(train_samples), epochs=10, verbose=1, validation_data=validate_generator,validation_steps=len(validation_samples))
+history = model.fit_generator(train_generator, steps_per_epoch=len(train_samples), epochs=1, verbose=1, validation_data=validate_generator,validation_steps=len(validation_samples))
 model.save('model.h5')
 
 import matplotlib.pyplot as plt
