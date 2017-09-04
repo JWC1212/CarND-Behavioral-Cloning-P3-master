@@ -73,7 +73,7 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 model.compile(loss='mse',optimizer='Adam',metrics=['accuracy'])
-history = model.fit_generator(train_generator, steps_per_epoch=len(train_samples), epochs=1, verbose=1, validation_data=validate_generator,validation_steps=len(validation_samples))
+history = model.fit_generator(train_generator, samples_per_epoch=len(train_samples), nb_epoch=3, verbose=1, validation_data=validate_generator,nb_val_samples=len(validation_samples))
 model.save('model.h5')
 
 import matplotlib.pyplot as plt
