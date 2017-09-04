@@ -8,16 +8,17 @@ import numpy as np
 import csv
 import matplotlib.image as mpimg
 from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split
 
 lines = []
-with open('../data/driving_log.csv') as csv_file:
+with open('./data/driving_log.csv') as csv_file:
     reader = csv.reader(csv_file)
     for line in reader:
         lines.append(line)
 
 lines = shuffle(lines)
-train_samples, validation_samples = train_test_split(lines, test_size=0.2)
+n_lines = len(lines)
+n_train = int(0.8*n_lines)
+train_samples, validation_samples = lines[0:n_train], lines[n_train:]
 
 def sample_generator (samples, batch_size=32):
     n_samples = len(samples)
@@ -29,7 +30,7 @@ def sample_generator (samples, batch_size=32):
             for line in batch_samples:
                 src_file_path = line[0]
                 file_name = src_file_path.split('/')[-1]
-                current_path = '../data/IMG/'+file_name
+                current_path = './data/IMG/'+file_name
                 img = mpimg.imread(current_path)
                 images.append(img)
                 measurement = float(line[3])
