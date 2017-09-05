@@ -39,8 +39,8 @@ def sample_generator (samples, batch_size=32):
             y_ = np.array(measurements)
             yield shuffle(X_, y_)
 
-train_generator = sample_generator(train_samples, batch_size=128)
-validate_generator = sample_generator(validation_samples, batch_size=128)
+train_generator = sample_generator(train_samples, batch_size=32)
+validate_generator = sample_generator(validation_samples, batch_size=32)
     
 from keras.models import Sequential
 from keras.layers import Flatten, Dense ,Lambda
