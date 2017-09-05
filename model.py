@@ -32,23 +32,15 @@ def sample_generator (samples, batch_size=32):
                 file_name = src_file_path.split('/')[-1]
                 current_path = './data/IMG/'+file_name
                 img = mpimg.imread(current_path)
-                images.append(img)
+                images.append(np.flip(img,1))
                 measurement = float(line[3])
-                measurements.append(measurement)
-
-            augmented_images, augmented_measurements = [],[]
-            for img, measure in zip(images, measurements):
-                augmented_images.append(img)
-                augmented_measurements.append(measure)
-                augmented_images.append(np.flip(img, 1))
-                augmented_measurements.append(measure*(-1.0))
-
-            X_ = np.array(augmented_images)
-            y_ = np.array(augmented_measurements)
+                measurements.append(measurement*(-1.0))
+            X_ = np.array(images)
+            y_ = np.array(measurements)
             yield shuffle(X_, y_)
 
-train_generator = sample_generator(train_samples, 128)
-validate_generator = sample_generator(validation_samples, 128)
+train_generator = sample_generator(train_samples, batch_size=128)
+validate_generator = sample_generator(validation_samples, batch_size=128)
     
 from keras.models import Sequential
 from keras.layers import Flatten, Dense ,Lambda
