@@ -56,7 +56,7 @@ The model.py file contains the code for training and saving the convolution neur
 
 My model consists of a normalization layer, five convolution layers, and three fully connected layers.This architecture follows NVIDIA's model(see the paper "End to End Learning for Self-Driving Cars").The first three convolutional layers use 5x5 kernel sizes and followed by 2x2 max pooling kernel size. The second two convolutional layers have no max pooling layers just kernel size of 3x3. 
 
-All three fully connected layers have 100, 50, 10 units respectively and each followed by RELU layers to introduce nonlinearity. the data is normalized in the model using a Keras lambda layer (code line 18). 
+All three fully connected layers have 100, 50, 10 units respectively and each followed by RELU layers to introduce nonlinearity. The data is normalized in the model using a Keras lambda layer (code line 18). 
 
 ####2. Attempts to reduce overfitting in the model
 
@@ -66,11 +66,11 @@ The model was trained and validated on different data sets to ensure that the mo
 
 ####3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25). The batch_size is increased to 128 from 32 to raise randomness of data set. The number of epoch is also adjusted to 30 from 10.
 
 ####4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road as well reverse driving track. 
+Training data was chosen to keep the vehicle driving on the road as well recovering from the left and right sides of the road, reverse driving track and driving smoothly along curve. 
 
 For details about how I created the training data, see the next section. 
 
