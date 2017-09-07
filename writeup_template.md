@@ -78,23 +78,25 @@ For details about how I created the training data, see the next section.
 
 ####1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to combine convolutional network with normal fully connected neural network.
+The overall strategy for deriving a model architecture was to use convolutional neutral network to map center camera's picture to sheering's angle.
 
-My first step was to use a convolution neural network model similar to the LeNet I thought this model might be appropriate because convolution neural network can process pictures from camera very well.
+My first step was to use a convolutional neural network model with 2 convolutional layers and 2 fully connected layers. I thought this model might be appropriate because convolution neural network can recognize pictures from camera very well.
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set. This implied that the model was underfitting. 
+
+To combat the underfitting, I added another 3 convolutional layers. The first three convolutional layers have each a max pooling layer. I also added one convolutional layers with 10 units.
 
 To combat the overfitting, I modified the model so that the gap of mean squared error between train and test data set.
 
-Then I add a drop-up a layer. 
+Then I add a drop-up layer after each fully connected layer. 
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track then recovered to improve the driving behavior in these cases, I recorded these cases and used them to train the model. In such a way the model can be generalized better.
+The final step was to run the simulator to see how well the car was driving around track one. At first turning-left curve spot where the vehicle fell off the track then recovered to improve the driving behavior in these cases, I recorded these cases and used them to train the model. In such a way the model can be generalized better.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 ####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes 6. 
+The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the 5 convolutional layers and each layer's size in order is 16, 32, 48, 64, 64, 3 fully connected layers have each 100, 50 ,10 units and followed by drop-oup layer.
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
@@ -114,16 +116,16 @@ I then recorded the vehicle recovering from the left side and right sides of the
 
 Then I repeated this process on track two in order to get more data points.
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+To augment the data sat, I also flipped images and angles thinking that this would increase performance. For example, here is an image that has then been flipped:
 
 ![alt text][image6]
 ![alt text][image7]
 
 Etc ....
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+After the collection process, I had 14611 data points. I then preprocessed this data by extracting only center camera images and normalizing them.
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 30 as evidenced by accuracy. I used an adam optimizer so that manually training the learning rate wasn't necessary.
